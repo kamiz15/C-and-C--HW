@@ -1,0 +1,95 @@
+
+/*CH-230-A
+A10p1 .c
+Kamila Ziza
+kziza@constructor.university
+*/
+
+
+PROBLEM10_1:
+
+
+A)THE ERRORS:
+
+Compilation failed due to following error(s).testcitter.cpp: In function ‘int main(int, char**)’:
+
+testcitter.cpp:11:9: error: ‘string’ was not declared in this scope; did you mean ‘std::string’?
+   11 |         string name;
+      |         ^~~~~~
+      |         std::string
+In file included from /usr/include/c++/11/iosfwd:39,
+                 from /usr/include/c++/11/ios:38,
+                 from /usr/include/c++/11/ostream:38,
+                 from /usr/include/c++/11/iostream:39,
+                 from testcitter.cpp:1:
+/usr/include/c++/11/bits/stringfwd.h:79:33: note: ‘std::string’ declared here
+   79 |   typedef basic_string<char>    string;
+      |                                 ^~~~~~
+testcitter.cpp:14:9: error: ‘cout’ was not declared in this scope; did you mean ‘std::cout’?
+   14 |         cout << endl << "Please enter data: " << endl;
+      |         ^~~~
+      |         std::cout
+In file included from testcitter.cpp:1:
+/usr/include/c++/11/iostream:61:18: note: ‘std::cout’ declared here
+   61 |   extern ostream cout;          /// Linked to standard output
+      |                  ^~~~
+testcitter.cpp:14:17: error: ‘endl’ was not declared in this scope; did you mean ‘std::endl’?
+   14 |         cout << endl << "Please enter data: " << endl;
+      |                 ^~~~
+      |                 std::endl
+In file included from /usr/include/c++/11/iostream:39,
+                 from testcitter.cpp:1:
+/usr/include/c++/11/ostream:684:5: note: ‘std::endl’ declared here
+  684 |     endl(basic_ostream<_CharT, _Traits>& __os)
+      |     ^~~~
+testcitter.cpp:18:17: error: ‘cin’ was not declared in this scope; did you mean ‘std::cin’?
+   18 |         getline(cin, name);
+      |                 ^~~
+      |                 std::cin
+In file included from testcitter.cpp:1:
+/usr/include/c++/11/iostream:60:18: note: ‘std::cin’ declared here
+   60 |   extern istream cin;           /// Linked to standard input
+      |                  ^~~
+testcitter.cpp:18:22: error: ‘name’ was not declared in this scope; did you mean ‘tzname’?
+   18 |         getline(cin, name);
+      |                      ^~~~
+      |                      tzname
+
+
+
+
+THE EXPLANATION:
+
+In this code, we have commented out the line `using namespace std`. This line is typically used to simplify our code by allowing us to use standard C++ functions and objects, like `cin`, `cout`, `endl`, and `string`, without having to specify the namespace every time we use them.
+
+However, when we remove this line, we encounter issues. For example, since we commented out `using namespace std`, we can no longer use `string` as if it were part of the global namespace. This means that there will be an error when we use the name of the variable `name`, which is declared as a `string`.
+
+The namespace `std` contains all the standard C++ libraries, and by commenting out `using namespace std`, we are essentially excluding these libraries from the global namespace. To resolve the errors in this code, we need to fully qualify the names we use from the standard library. We do this by specifying that they belong to the `std` namespace, and we use the scope resolution operator `::` to do so. For instance, to use `cin`, we write `std::cin`. This modification ensures that our code can access the standard library objects and functions without any issues.
+
+
+
+B)THE ERROR:
+
+main.cpp: In function ‘void setHunger(int)’:
+main.cpp:11:9: error: ‘hunger’ was not declared in this scope; did you mean ‘newhunger’?
+   11 |         hunger = newhunger;
+      |         ^~~~~~
+      |         newhunger
+main.cpp: In function ‘void print()’:
+main.cpp:15:28: error: ‘name’ was not declared in this scope; did you mean ‘tzname’?
+   15 |         cout << "I am " << name << ". My hunger level is " << hunger << "." << endl;
+      |                            ^~~~
+      |                            tzname
+main.cpp:15:63: error: ‘hunger’ was not declared in this scope
+   15 |         cout << "I am " << name << ". My hunger level is " << hunger << "." << endl;
+      |                                                               ^~~~~~
+main.cpp: In function ‘int getHunger()’:
+main.cpp:19:16: error: ‘hunger’ was not declared in this scope
+   19 |         return hunger;
+      |                ^~~~~~
+
+
+THE EXPLANATION:
+In the process of defining the Critter class in the header file, we declare both the member functions and the private data members of the class. These declarations provide a blueprint for the class's structure and behavior.
+
+However, in the Critter.cpp file, when we remove the `Critter::` scope qualifier from the member function definitions, we encounter a series of errors. The reason for these errors is that, without the `Critter::` qualifier, the functions lose their association with the Critter class. As a result, they can't access or manipulate the private data members and variables declared within the class. This is because the scope qualifier is essential for establishing the connection between the member functions and the class they belong to.
